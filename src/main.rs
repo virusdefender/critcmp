@@ -68,7 +68,7 @@ fn try_main() -> Result<()> {
     if args.list() {
         output::rows(&mut wtr, &comps)?;
     } else {
-        output::columns(&mut wtr, &comps)?;
+        output::columns(&mut wtr, &comps, benchmarks.name_order)?;
     }
     wtr.flush()?;
     Ok(())

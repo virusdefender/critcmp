@@ -142,9 +142,12 @@ impl Args {
         }
 
         let mut data = Benchmarks::default();
-        for basebench in from_crit.into_iter().chain(from_cli) {
+        for basebench in from_cli.into_iter().chain(from_crit) {
             if !whitelist.is_empty() && !whitelist.contains(&basebench.name) {
                 continue;
+            }
+            if !data.name_order.contains(&basebench.name) {
+                data.name_order.push(basebench.name.clone());
             }
             data.by_baseline.insert(basebench.name.clone(), basebench);
         }

@@ -12,6 +12,7 @@ use crate::Result;
 
 #[derive(Clone, Debug, Default)]
 pub struct Benchmarks {
+    pub name_order: Vec<String>,
     pub by_baseline: BTreeMap<String, BaseBenchmarks>,
 }
 

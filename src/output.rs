@@ -90,22 +90,16 @@ impl Benchmark {
 pub fn columns<W: WriteColor>(
     mut wtr: W,
     groups: &[Comparison],
+    name_order: Vec<String>
 ) -> Result<()> {
-    let mut columns = BTreeSet::new();
-    for group in groups {
-        for b in &group.benchmarks {
-            columns.insert(b.name.to_string());
-        }
-    }
-
     write!(wtr, "group")?;
-    for column in &columns {
+    for column in &name_order {
         write!(wtr, "\t  {}", column)?;
     }
     writeln!(wtr, "")?;
 
     write_divider(&mut wtr, '-', "group".width())?;
-    for column in &columns {
+    for column in &name_order {
         write!(wtr, "\t  ")?;
         write_divider(&mut wtr, '-', column.width())?;
     }
@@ -117,7 +111,7 @@ pub fn columns<W: WriteColor>(
         }
 
         write!(wtr, "{}", group.name)?;
-        for column_name in &columns {
+        for column_name in &name_order {
             let b = match group.get(column_name) {
                 Some(b) => b,
                 None => {
